@@ -1,0 +1,106 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Accounts import details</h1>
+
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+        <tr>
+            <th class="col-md-2">ID</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Created at</th>
+            <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Executed at</th>
+            <td>{{ entity.executedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.statusName }}</td>
+        </tr>
+        <tr>
+            <th>Info</th>
+            <td>
+                <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".entity-info">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    show/hide
+                </a>
+
+                <div class="entity-info collapsed">
+                    <pre>{{ entity.info|raw }}</pre>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>File content</th>
+            <td>
+                <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".file-content">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    show/hide
+                </a>
+
+                <div class="file-content collapsed">
+                    <pre>{{ file_content|raw }}</pre>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Missing VAT numbers</th>
+            <td>
+                <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".missing-vat">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    show/hide
+                </a>
+
+                <div class="missing-vat collapsed">
+                    <pre>{% for vat in missing_vat_numbers %}{{ vat }}<br/>{% endfor %}</pre>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Results</h2>
+
+    <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".results">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        show/hide
+    </a>
+
+    <div class="results collapsed">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <th>
+                VAT number
+            </th>
+            <th>
+                Number of created Messages
+            </th>
+            <th>Messages</th>
+            </thead>
+            <tbody>
+            {% for vat, ids in entity.payloadArray %}
+                <tr>
+                    <td>
+                        {{ vat }}
+                    </td>
+                    <td>
+                        {{ ids|length }}
+                    </td>
+                    <td>
+                        {% for id in ids|sort %}
+                            <a href="{{ path('message_show', { 'id': id }) }}" class="btn btn-info btn-xs">
+                                # {{ id }}
+                            </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

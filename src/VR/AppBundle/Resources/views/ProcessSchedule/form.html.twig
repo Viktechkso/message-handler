@@ -1,0 +1,74 @@
+{{ form_errors(form) }}
+
+<div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-7">
+        {{ form_widget(form.enabled) }}
+        {{ form_errors(form.enabled) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-7">
+        <table class="table">
+            <tr>
+                <td>Min</td>
+                <td>Hour</td>
+                <td>Day of Month</td>
+                <td>Month</td>
+                <td>Day of Week</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.minute) }}</td>
+                <td>{{ form_widget(form.hour) }}</td>
+                <td>{{ form_widget(form.dayOfMonth) }}</td>
+                <td>{{ form_widget(form.month) }}</td>
+                <td>{{ form_widget(form.dayOfWeek) }}</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div>{{ form_errors(form.minute) }}</div>
+                    <div>{{ form_errors(form.hour) }}</div>
+                    <div>{{ form_errors(form.dayOfMonth) }}</div>
+                    <div>{{ form_errors(form.month) }}</div>
+                    <div>{{ form_errors(form.dayOfWeek) }}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Type</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.type) }}
+        {{ form_errors(form.type) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Parameters</label>
+    <div class="col-sm-7">
+        <div class="alert alert-info">
+            <div id="parametersHelper1"></div>
+            <div id="parametersHelper2"></div>
+        </div>
+        {{ form_widget(form.parameters, {attr: {rows: 15}}) }}
+        {{ form_errors(form.parameters) }}
+        <div id="parameters_editor"></div>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+
+<script src="{{ asset('ace/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+<script>var parameters = {{ parameters|json_encode|raw }};</script>

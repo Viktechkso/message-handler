@@ -1,0 +1,97 @@
+[
+    {
+        "source": "Company.PNo",
+        "target": "company.cvr_no",
+        "format": "integer"
+    },
+    {
+        "source": "Company.bankConnection",
+        "target": "company.bank_connection",
+        "format": "integer"
+    },
+    {
+        "source": "Company.updateDate",
+        "target": "company.update_date",
+        "format": "datetime",
+        "mapping": {
+            "input-format": "Y-m-d H:i:s.u",
+            "output-format": "Y-m-d H:i:s"
+        }
+    },
+    {
+        "source": "Company.legalEntity",
+        "target": "company.legal_entity",
+        "format": "mapping",
+        "mapping":  {
+            "1": true,
+            "0": false
+        }
+    },
+    {
+        "comment": "test",
+        "source": "StringSource[0].primary",
+        "target": "string_source",
+        "format": "string",
+        "default": 0
+    },
+    {
+        "source": "Company.street",
+        "target": "company_street",
+        "format": "function",
+        "mapping": {
+            "function": "substr",
+            "arguments": ["{value}", 0, 5]
+        },
+        "default": 0
+    },
+    {
+        "target": "modified_date",
+        "format": "function",
+        "mapping": {
+            "function": "date",
+            "arguments": ["Y-m-d H:i:s", 1419447600]
+        }
+    },
+    {
+        "source": "CompanyTrade[0].primary",
+        "target": "company_trade[0].primary",
+        "format": "boolean"
+    },
+    {
+        "source": "CompanyTrade[0].tradeCode",
+        "target": "company_trade[0].trade_code",
+        "format": "integer"
+    },
+    {
+        "source": "CompanyFinance[0].availableFundsRatio",
+        "target": "company_finance.available_funds_ratio",
+        "format": "float",
+        "mapping": {
+            "thousand-separator": ",",
+            "comma-separator": "."
+        }
+    },
+    {
+        "target": "test_target",
+        "default": "World!"
+    },
+    {
+        "target": "test_target",
+        "default": "Hello ",
+        "mode": "prepend"
+    },
+    {
+        "source": "Company.companyForm",
+        "target": "test_concat"
+    },
+    {
+        "target": "test_concat",
+        "default": " ",
+        "mode": "append"
+    },
+    {
+        "source": "Company.district",
+        "target": "test_concat",
+        "mode": "append"
+    }
+]

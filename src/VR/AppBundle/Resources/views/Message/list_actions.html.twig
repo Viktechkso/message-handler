@@ -1,0 +1,35 @@
+<a href="{{ path('message_show', { 'id': entity.id }) }}" class="btn btn-info btn-xs">
+    Details
+</a>
+
+{% if entity.isActionAllowed('run') %}
+    <a href="{{ path('message_run', {'id': entity.id}) }}" class="btn btn-primary btn-xs" title="Run message now">
+        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+    </a>
+{% else %}
+    <div class="icon-button-placeholder-xs"></div>
+{% endif %}
+
+{% if entity.isActionAllowed('new') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'New'}) }}" class="btn btn-success btn-xs" title="Set status New">
+        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+    </a>
+{% else %}
+    <div class="icon-button-placeholder-xs"></div>
+{% endif %}
+
+{% if entity.isActionAllowed('halt') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'Halted'}) }}" class="btn btn-warning btn-xs" title="Halt message">
+        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+    </a>
+{% else %}
+    <div class="icon-button-placeholder-xs"></div>
+{% endif %}
+
+{% if entity.isActionAllowed('cancel') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'Cancelled'}) }}" class="btn btn-danger btn-xs" title="Cancel message">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </a>
+{% else %}
+    <div class="icon-button-placeholder-xs"></div>
+{% endif %}

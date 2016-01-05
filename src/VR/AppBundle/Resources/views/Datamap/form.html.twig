@@ -1,0 +1,36 @@
+{{ form_errors(form) }}
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Type</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.type) }}
+        {{ form_errors(form.type) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Datamap (JSON)</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.map, {attr: {rows: 15}}) }}
+        {{ form_errors(form.map) }}
+        <div id="map_editor" style="width: 650px; height: 500px"></div>
+    </div>
+</div>
+
+{{ form_rest(form) }}

@@ -1,0 +1,24 @@
+services:
+    vr.steps_manager:
+        class: VR\AppBundle\Service\StepsManager
+        arguments: []
+
+    vr.plugin_manager:
+        class: VR\AppBundle\Plugin\PluginManager
+        arguments: [@service_container]
+
+    vr.log_reader:
+        class: VR\AppBundle\Service\LogReader
+        arguments: [%kernel.logs_dir%]
+
+    vr.system:
+        class: VR\AppBundle\Service\System
+        arguments: []
+
+
+    ### LISTENERS / SUBSCRIBERS ###
+
+    vr.subscriber.stepUpdate:
+        class: VR\AppBundle\EventListener\StepUpdate
+        tags:
+            - { name: doctrine.event_subscriber }

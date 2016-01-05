@@ -1,0 +1,79 @@
+{% if entity.errorsForStep(stepNumber).count %}
+    <table class="table table-bordered table-striped step-{{ stepNumber }}-errors {% if stepData.Status != 'Error' %}collapsed{% endif %}">
+        <thead>
+        <tr>
+            <th class="col-md-1">ID</th>
+            <th>Message</th>
+            <th class="col-md-3">Entry at</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for error in entity.errorsForStep(stepNumber) %}
+            <tr{% if not loop.first %} class="disabled"{% endif %}>
+                <td>
+                    {{ error.id }}
+                </td>
+                <td>
+                    <p>
+                        {{ error.errorMessage }}
+                    </p>
+
+                    {% if error.errorPayload and loop.first %}
+                        <form action="{{ path('message_set_step_guid', {id: entity.id, stepNumber: stepNumber}) }}" method="post">
+                            <ul class="list-group">
+                                {% for id in error.errorPayloadIds %}
+                                    <li class="list-group-item {% if stepData.GUID == id %}active{% endif %}">
+                                        {% if error.showRadioButtons %}
+                                            <input type="radio" name="guid" value="{{ id }}" {% if stepData.GUID == id %}checked="checked"{% endif %} />
+                                        {% endif %}
+
+                                        GUID {{ loop.index }}:
+
+                                        {% if error.errorPayloadModule %}
+                                            <a href="{{ sugarcrmUrl|replace({'{module}': error.errorPayloadModule, '{guid}': id}) }}" target="_blank" style="{% if stepData.GUID == id %}color:white{% endif %}">
+                                                {{ id }}
+                                            </a>
+                                        {% elseif stepData.Module %}
+                                            <a href="{{ sugarcrmUrl|replace({'{module}': stepData.Module, '{guid}': id}) }}" target="_blank" style="{% if stepData.GUID == id %}color:white{% endif %}">
+                                                {{ id }}
+                                            </a>
+                                        {% else %}
+                                            {{ id }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+
+                                {% if error.showCreateNew %}
+                                    <li class="list-group-item {% if stepData.GUID == 'new-record' %}active{% endif %}">
+                                        <input type="radio" name="guid" value="new-record" {% if stepData.GUID == 'new-record' %}checked="checked"{% endif %} />
+                                        Create new record
+                                    </li>
+                                {% endif %}
+
+                                {% if error.showUseThis %}
+                                    <li class="list-group-item">
+                                        <input type="radio" name="guid" value="new-guid" />
+                                        Use this GUID:
+                                        <input type="text" name="new-guid-value" placeholder="XXXX-XXXX-XXXX-XXXX" size="25" />
+                                    </li>
+                                {% endif %}
+
+                                {% if error.showButtons %}
+                                    <li class="list-group-item">
+                                        <button type="submit" class="btn btn-xs btn-success">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Confirm and set message status New
+                                        </button>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </form>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ error.entryAt|date('Y-m-d H:i:s') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

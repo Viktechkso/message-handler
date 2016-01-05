@@ -1,0 +1,4 @@
+vr_app:
+    resource: "@VRAppBundle/Resources/config/routing.yml"
+    prefix:   /
+

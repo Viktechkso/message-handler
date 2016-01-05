@@ -1,0 +1,10 @@
+vr_app_controllers:
+    resource: "@VRAppBundle/Controller"
+    type:     annotation
+
+homepage:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /message
+        permanent: false

@@ -1,0 +1,16 @@
+vr_app:
+    sugarcrm_url: "https://sugarcrm.dev"
+    create_account:
+        provider: nne
+        add_sub_companies: true
+    plugins:
+        enabled_run_modes:
+            sql: [main]
+            sugar_crm: [main]
+vr_sugar_crm:
+    connections:
+        default:
+            url: 'http://sugarcrm.dev/service/v4_1/rest.php'
+            username: test-user
+            password: test-password
+            md5_password: true

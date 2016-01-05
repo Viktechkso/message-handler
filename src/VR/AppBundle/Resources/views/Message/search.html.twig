@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Search
+        <a href="#" class="btn btn-default btn-xs pull-right switch switch-animate" data-target=".search-box-body" data-cookie="search-box">
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="panel-body search-box-body">
+        <form action="{{ path('message') }}" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Type</label>
+                    {{ form_widget(searchForm.flowName) }}
+                    {{ form_errors(searchForm.flowName) }}
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-md-3">
+                    <label>Status</label>
+                    {{ form_widget(searchForm.flowStatuses) }}
+                    {{ form_errors(searchForm.flowStatuses) }}
+                </div>
+                <div class="col-md-9">
+                    <label>Created from</label>
+                    {{ form_widget(searchForm.createdAtFrom) }}
+                    {{ form_errors(searchForm.createdAtFrom) }}
+
+                    <label>Created to</label>
+                    {{ form_widget(searchForm.createdAtTo) }}
+                    {{ form_errors(searchForm.createdAtTo) }}
+
+                    <label>Containing</label>
+                    {{ form_widget(searchForm.containing) }}
+                    {{ form_errors(searchForm.containing) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_rest(searchForm) }}
+
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+                    </button>
+
+                    <a href="{{ path('message_search_clear') }}" class="btn btn-default" title="Clear filters">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

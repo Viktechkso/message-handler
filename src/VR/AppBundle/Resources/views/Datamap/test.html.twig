@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Test datamap</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Message payload</h4>
+            <pre>{{ message }}</pre>
+        </div>
+        <div class="col-md-4">
+            <h4>Datamap</h4>
+            <pre>{{ datamap.map }}</pre>
+        </div>
+        <div class="col-md-4">
+            <h4>Data output</h4>
+            <pre>{{ output }}</pre>
+        </div>
+    </div>
+
+{% endblock %}

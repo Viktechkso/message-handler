@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" {% if active_tab == 'create' %}class="active"{% endif %}>
+        <a href="{{ path('account_create') }}">Create</a>
+    </li>
+    <li role="presentation" {% if active_tab == 'import' %}class="active"{% endif %}>
+        <a href="{{ path('account_import') }}">Import</a>
+    </li>
+</ul>

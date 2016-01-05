@@ -1,0 +1,16 @@
+<div id="status-overview" class="panel panel-default">
+    <div class="panel-heading">
+        Status overview
+
+        <a href="#" class="btn btn-default btn-xs pull-right switch switch-animate" data-target=".status-box-body" data-cookie="status-box">
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        </a>
+
+        <div class="ajax-spinner pull-right"></div>
+    </div>
+    <div class="panel-body status-box-body">
+        <div class="ajax-reload" data-url="{{ path('message_ajax_status_box') }}" data-interval="30" data-show-spinner="true" data-spinner-target="#status-overview .ajax-spinner">
+            {% render controller('VRAppBundle:Message:ajaxStatusBox') %}
+        </div>
+    </div>
+</div>

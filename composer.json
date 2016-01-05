@@ -1,0 +1,89 @@
+{
+    "name": "visual-reporting/message-handler",
+    "license": "Apache-2.0",
+    "type": "project",
+    "description": "Message Handler",
+    "authors": [
+        {
+            "name": "Visual Reporting Team",
+            "email": "info@visualreporting.dk",
+            "homepage": "http://visualreporting.dk"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": ["src/", "plugins/"], "SymfonyStandard": "app/" }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.visualreporting.dk:bundles/sugar-crm.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.6.x-dev",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.2",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~3.0",
+        "sensio/framework-extra-bundle": "~3.0",
+        "sensio/generator-bundle": "~2.3",
+        "incenteev/composer-parameter-handler": "~2.1",
+
+        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
+        "knplabs/knp-paginator-bundle": "2.4.1",
+        "visualreporting/sugar-crm-bundle": "2.0.*"
+    },
+    "require-dev": {
+        "phing/phing": "2.8.*",
+        "phpunit/phpunit": "~4.0",
+        "mockery/mockery": "dev-master@dev",
+        "codeception/codeception": "2.1.*",
+        "codeception/mockery-module": "0.1.*",
+        "codeception/aspect-mock": "0.5.*"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": [
+            {
+                "file": "app/config/parameters.yml"
+            },
+            {
+                "file": "app/config/plugins.yml",
+                "parameter-key": "vr_app"
+            }
+        ],
+        "branch-alias": {
+            "dev-master": "2.6-dev"
+        }
+    }
+}

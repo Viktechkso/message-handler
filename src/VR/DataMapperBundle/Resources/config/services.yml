@@ -1,0 +1,4 @@
+services:
+    vr.data_mapper:
+        class: VR\DataMapperBundle\DataMapper\MuleDataMapper
+        arguments: ["@doctrine.orm.entity_manager"]

@@ -1,0 +1,14 @@
+<form action="" method="post" class="form-inline">
+    {{ form_errors(runAtForm) }}
+
+    <div class="form-group">
+        {{ form_widget(runAtForm.runAt) }}
+        {{ form_errors(runAtForm.runAt) }}
+    </div>
+
+    {{ form_rest(runAtForm) }}
+
+    <button type="submit" class="btn btn-small btn-default">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Set
+    </button>
+</form>

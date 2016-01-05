@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {% include 'VRAppBundle:Account:navigation.html.twig' with {'active_tab': 'create'} %}
+
+    <h1>Create Account</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="post" class="form-horizontal">
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">VAT country</label>
+                    <div class="col-sm-2">
+                        {{ form_widget(form.vatCountry) }}
+                        {{ form_errors(form.vatCountry) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">VAT number</label>
+                    <div class="col-sm-3">
+                        {{ form_widget(form.vatNumber) }}
+                        {{ form_errors(form.vatNumber) }}
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

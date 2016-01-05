@@ -1,0 +1,25 @@
+<tr class="status-{{ entity.flowStatus|lower }}">
+    <td>
+        <input type="checkbox" id="batch_{{ loop.index }}" name="batch_ids[]" value="{{ entity.id }}" class="checkbox-select-all-item" />
+    </td>
+    <td>{{ entity.id }}</td>
+    <td>{% if entity.flowCreatedAt %}{{ entity.flowCreatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+    <td>
+        {% if messageTypes[entity.flowName] is defined %}
+            {{ messageTypes[entity.flowName] }}
+        {% endif %}
+    </td>
+    <td>
+        {% if entity.runAt %}
+            {{ entity.runAt|date('Y-m-d H:i:s') }}
+        {% endif %}
+    </td>
+    <td class="ajax-reload2" data-url="{{ path('message_ajax_list_status', {'id': entity.id}) }}" data-interval="30">
+                        <span class="label {{ entity.flowStatusCssClass }}">
+                            {{ entity.flowStatus }}
+                        </span>
+    </td>
+    <td class="ajax-reload2" data-url="{{ path('message_ajax_list_actions', {'id': entity.id}) }}" data-interval="30">
+        {% include 'VRAppBundle:Message:list_actions.html.twig' %}
+    </td>
+</tr>

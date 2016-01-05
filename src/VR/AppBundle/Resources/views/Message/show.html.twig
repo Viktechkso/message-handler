@@ -1,0 +1,120 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Message</h1>
+
+    <p>
+        {% include 'VRAppBundle:Message:show_actions.html.twig' %}
+    </p>
+
+    <div class="clearfix" style="margin-bottom: 10px"></div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+        <tr>
+            <th class="col-md-2">ID</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>
+                {% if messageTypes[entity.flowName] is defined %}
+                    {{ messageTypes[entity.flowName] }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ entity.flowCreatedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Message steps</th>
+            <td>
+                <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".entity-flow">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    show/hide
+                </a>
+
+                <div class="entity-flow collapsed">
+                    <pre>{{ entity.prettyFlow }}</pre>
+
+                    {% if entity.prettyFlowLastError and entity.prettyFlowLastError != 'No error' %}
+                        <div class="alert alert-danger">
+                            JSON parsing error: {{ entity.prettyFlowLastError }}
+                        </div>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Message status</th>
+            <td>
+                <span class="label {{ entity.flowStatusCssClass }}">
+                    {{ entity.flowStatus }}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td>
+                <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".entity-flow-message">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    show/hide
+                </a>
+
+                <div class="entity-flow-message collapsed">
+                    <pre>{{ entity.prettyFlowMessage }}</pre>
+
+                    {% if entity.prettyFlowMessageLastError and entity.prettyFlowMessageLastError != 'No error' %}
+                        <div class="alert alert-danger">
+                            JSON parsing error: {{ entity.prettyFlowMessageLastError }}
+                        </div>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Completed steps</th>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{ completedStepsPercentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completedStepsPercentage }}%;">
+                        {{ completedStepsPercentage }}% ({{ countCompletedSteps }}/{{ countAllSteps }} done)
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Run at</th>
+            <td>
+                {% if entity.isStatus('new') %}
+                    {% include 'VRAppBundle:Message:show_run_at.html.twig' %}
+                {% else %}
+                    {% if entity.runAt %}
+                        {{ entity.runAt|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <ul class="nav nav-tabs" data-tabs="tabs">
+            <li role="presentation" class="active">
+                <a href="#message-steps" data-toggle="tab">Message steps</a>
+            </li>
+            <li role="presentation">
+                <a href="#message-changes" data-toggle="tab">Step changes</a>
+            </li>
+        </ul>
+    </p>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="message-steps">
+            {% include 'VRAppBundle:Message:steps.html.twig' %}
+        </div>
+        <div class="tab-pane" id="message-changes">
+            {% include 'VRAppBundle:Message:changes.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Warning - this file is automatically deployed and overwritten.
+
+SHELL=/bin/sh
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+MAILTO=""
+
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 0         --env=prod >> {{SET:logs_path}}/cron.message_handler.run0.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 1         --env=prod >> {{SET:logs_path}}/cron.message_handler.run1.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 2         --env=prod >> {{SET:logs_path}}/cron.message_handler.run2.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 3         --env=prod >> {{SET:logs_path}}/cron.message_handler.run3.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 4         --env=prod >> {{SET:logs_path}}/cron.message_handler.run4.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 5         --env=prod >> {{SET:logs_path}}/cron.message_handler.run5.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 6         --env=prod >> {{SET:logs_path}}/cron.message_handler.run6.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run 7         --env=prod >> {{SET:logs_path}}/cron.message_handler.run7.prod.log    2>&1
+* * * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console cron:run-forced    --env=prod >> {{SET:logs_path}}/cron.message_handler.forced.prod.log  2>&1
+0 0 * * *   {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console messages:archive 2 --env=prod >> {{SET:logs_path}}/cron.message_handler.archive.prod.log 2>&1
+*/5 * * * * {{SET:user}} /usr/bin/php {{SET:app_path}}/app/console import:vat-numbers --env=prod >> {{SET:logs_path}}/cron.message_handler.import.prod.log  2>&1
+
+# EOF

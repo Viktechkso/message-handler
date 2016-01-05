@@ -1,0 +1,65 @@
+<div id="batch-selected" class="btn-group dropup">
+    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+        Action for selected <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li class="bg-success">
+            <a href="#" class="batch-submit" data-action="new" data-action-type="selected">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                Set status New
+            </a>
+        </li>
+        <li class="bg-warning">
+            <a href="#" class="batch-submit" data-action="halt" data-action-type="selected">
+                <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                Halt message
+            </a>
+        </li>
+        <li class="bg-danger">
+            <a href="#" class="batch-submit" data-action="cancel" data-action-type="selected">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Cancel message
+            </a>
+        </li>
+        <li>
+            <a href="#" class="batch-submit" data-action="reset_guids" data-action-type="selected">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                Reset GUIDs
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div id="batch-all" class="btn-group dropup">
+    <button type="button" class="btn btn-xs btn-default dropdown-toggle tt" data-toggle="dropdown" aria-expanded="false" data-placement="bottom" title="This action is performed on all search results">
+        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+        Action for all <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li class="bg-success">
+            <a href="#" class="batch-submit" data-action="new" data-action-type="all">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                Set status New
+            </a>
+        </li>
+        <li class="bg-warning">
+            <a href="#" class="batch-submit" data-action="halt" data-action-type="all">
+                <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                Halt message
+            </a>
+        </li>
+        <li class="bg-danger">
+            <a href="#" class="batch-submit" data-action="cancel" data-action-type="all">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Cancel message
+            </a>
+        </li>
+        <li>
+            <a href="#" class="batch-submit" data-action="reset_guids" data-action-type="all">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                Reset GUIDs
+            </a>
+        </li>
+    </ul>
+</div>

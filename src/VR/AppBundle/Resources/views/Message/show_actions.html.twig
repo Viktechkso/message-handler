@@ -1,0 +1,39 @@
+<a href="{{ path('message') }}" class="btn btn-default btn-xs pull-left" style="margin-right: 5px">
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    Back to the list
+</a>
+
+{% if entity.isActionAllowed('run') %}
+    <a href="{{ path('message_run', {'id': entity.id}) }}" class="btn btn-primary btn-xs pull-left" style="margin-right: 5px">
+        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        Run message now
+    </a>
+{% endif %}
+
+{% if entity.isActionAllowed('new') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'New'}) }}" class="btn btn-success btn-xs pull-left" style="margin-right: 5px">
+        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+        Set status New
+    </a>
+{% endif %}
+
+{% if entity.isActionAllowed('halt') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'Halted'}) }}" class="btn btn-warning btn-xs pull-left" style="margin-right: 5px">
+        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+        Halt message
+    </a>
+{% endif %}
+
+{% if entity.isActionAllowed('cancel') %}
+    <a href="{{ path('message_set_status', {'id': entity.id, 'status': 'Cancelled'}) }}" class="btn btn-danger btn-xs pull-left" style="margin-right: 5px">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        Cancel message
+    </a>
+{% endif %}
+
+{% if entity.isActionAllowed('reset_guids') %}
+    <a href="{{ path('message_reset_guids', {'id': entity.id}) }}" class="btn btn-default btn-xs pull-left">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        Reset GUIDs
+    </a>
+{% endif %}

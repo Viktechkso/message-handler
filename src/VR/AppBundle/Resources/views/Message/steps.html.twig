@@ -1,0 +1,104 @@
+{% if stepsError %}
+    <div class="alert alert-danger">
+        Flow JSON parsing error: {{ stepsError }}
+    </div>
+{% else %}
+    <table id="message-steps" class="table table-bordered table-striped">
+        {% for stepNumber, stepData in steps %}
+            <tr>
+                <td style="text-align: center; vertical-align: middle">
+                    <h2>
+                            <span class="label {% if stepData.Datamap is defined %}label-info{% else %}label-warning{% endif %}">
+                                {{ stepNumber }}
+                            </span>
+                    </h2>
+                </td>
+                <td>
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class="col-md-3">Module name</th>
+                            <td>
+                                {% if stepData.SourceStep is defined or stepData.DestinationStep is defined %}
+                                    {% if stepData.SourceStep is defined %}{{ steps[stepData.SourceStep].Module }}{% endif %}
+                                    to
+                                    {% if stepData.DestinationStep is defined %}{{ steps[stepData.DestinationStep].Module }}{% endif %}
+
+                                    <span class="label label-warning pull-right">
+                                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                                        Relation
+                                    </span>
+                                {% else %}
+                                    {{ stepData.Module }}
+
+                                    <span class="label label-info pull-right">
+                                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                        Data mapping
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>GUID</th>
+                            <td>
+                                {% if stepData.GUID %}
+                                    {% if stepData.GUID == 'new-record' %}
+                                        <span class="label label-info">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New record to create
+                                        </span>
+                                    {% elseif stepData.SourceStep is defined or stepData.DestinationStep is defined %}
+                                        {{ stepData.GUID }}
+                                    {% else %}
+                                        <a href="{{ sugarcrmUrl|replace({'{module}': stepData.Module, '{guid}': stepData.GUID}) }}" target="_blank">
+                                            {{ stepData.GUID }}
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td class="error-status {% if stepData.Status == 'In progress' %}bg-success{% elseif stepData.Status == 'Error' %}bg-error{% elseif stepData.Status == 'New' %}bg-warning{% endif %}">
+                                {{ stepData.Status }}
+                            </td>
+                        </tr>
+                        {% if stepData['Datamap'] is defined %}
+                            <tr>
+                                <th>Test datamap</th>
+                                <td>
+                                    <a href="{{ url('datamap_test', {message: entity.id, stepNumber: stepNumber}) }}" class="btn btn-sm btn-default" target="_blank">Test</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Errors</th>
+                            <td class="{% if entity.errorsForStep(stepNumber).count %}bg-error{% endif %}">
+                                <p>
+                                    <span class="label {% if entity.errorsForStep(stepNumber).count %}label-danger{% else %}label-default{% endif %}">
+                                        Count: {{ entity.errorsForStep(stepNumber).count|number_format(0, ',', '.') }}
+                                    </span>
+                                </p>
+
+                                <p>
+                                    {% if (entity.errorsForStep(stepNumber).count) %}
+                                        <a href="#" class="btn btn-default btn-xs switch switch-animate" data-target=".step-{{ stepNumber }}-errors">
+                                            {% if stepData.Status == 'Error' %}
+                                                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                            {% else %}
+                                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                            {% endif %}
+                                            show/hide
+                                        </a>
+                                    {% endif %}
+                                </p>
+
+                                {% include 'VRAppBundle:Message:step_errors.html.twig' %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
